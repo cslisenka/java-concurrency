@@ -1,17 +1,12 @@
-package slisenko.threadpool;
+package slisenko.thread;
 
 import java.util.concurrent.*;
 
 import static slisenko.util.MyLogger.log;
 import static slisenko.util.ThreadUtil.sleep;
 
-// TODO different types of thread pools
-// TODO correct closing of the thread pool when application shutdown
-// TODO cancelling future and callables
-// TODO uncaught exception handling
 // TODO future with timeout
 // TODO jvm shutdown hooks Runtime.getRuntime().addShutdownHook
-// TODO daemon threads
 // TODO completable future
 // TODO what's new in new versions of java
 public class SinglePollMain {

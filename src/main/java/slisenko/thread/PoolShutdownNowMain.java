@@ -1,4 +1,4 @@
-package slisenko.threadpool;
+package slisenko.thread;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;

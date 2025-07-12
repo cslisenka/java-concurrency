@@ -1,4 +1,4 @@
-package slisenko.threadpool;
+package slisenko.thread;
 
 import static slisenko.util.MyLogger.log;
 import static slisenko.util.ThreadUtil.sleep;
