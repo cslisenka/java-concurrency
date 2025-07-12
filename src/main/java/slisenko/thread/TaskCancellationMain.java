@@ -8,8 +8,7 @@ import static slisenko.util.MyLogger.log;
 import static slisenko.util.ThreadUtil.sleep;
 
 public class TaskCancellationMain {
-
-    // TODO example for handling the thread interrupt
+    
     public static void main(String[] args) {
         ExecutorService pool = Executors.newSingleThreadExecutor();
 
