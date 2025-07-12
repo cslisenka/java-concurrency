@@ -6,9 +6,7 @@ import java.util.List;
 // Questions
 // Performance cost of synchronised vs non-synchronised code
 // TODO synchronised singleton
-// TODO locks on objects
 // TODO wait-notify
-// TODO example of deadlock
 // TODO thread local + thread local with date/time and random
 // TODO java memory model
 // TODO how to correctly handle interrupted exception
