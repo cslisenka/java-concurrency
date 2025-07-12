@@ -1,4 +1,4 @@
-package slisenko.volatil;
+package slisenko.synchronise;
 
 import static slisenko.util.MyLogger.log;
 import static slisenko.util.ThreadUtil.sleep;
