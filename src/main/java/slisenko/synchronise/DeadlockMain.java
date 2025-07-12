@@ -1,5 +1,8 @@
 package slisenko.synchronise;
 
+import static slisenko.util.MyLogger.log;
+import static slisenko.util.ThreadUtil.sleep;
+
 public class DeadlockMain {
 
     // TODO can we do locks on Integers, Strings or Booleans? Possible no as objects may be polled - check it
@@ -11,10 +14,10 @@ public class DeadlockMain {
             @Override
             public void run() {
                 synchronized (lock1) {
-                    System.out.format("%s got lock 1 \n", Thread.currentThread().getName());
+                    log("got lock 1");
                     sleep(1000);
                     synchronized (lock2) {
-                        System.out.format("%s git lock 2 \n", Thread.currentThread().getName());
+                        log("got lock 2");
                     }
                 }
             }
@@ -24,16 +27,16 @@ public class DeadlockMain {
             @Override
             public void run() {
                 synchronized (lock2) {
-                    System.out.format("%s got lock 2 \n", Thread.currentThread().getName());
+                    log("got lock 2");
                     sleep(1000);
                     synchronized (lock1) {
-                        System.out.format("%s git lock 1 \n", Thread.currentThread().getName());
+                        log("got lock 1");
                     }
                 }
             }
         };
 
-        System.out.println("Start");
+        log("Start");
 
         Thread t1 = new Thread(worker1);
         Thread t2 = new Thread(worker2);
@@ -43,14 +46,6 @@ public class DeadlockMain {
         t1.join();
         t2.join();
 
-        System.out.println("Never see finish because of deadlock");
-    }
-
-    public static void sleep(long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        log("Never see finish because of deadlock");
     }
 }

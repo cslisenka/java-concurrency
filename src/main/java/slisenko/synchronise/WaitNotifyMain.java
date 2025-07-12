@@ -1,12 +1,12 @@
 package slisenko.synchronise;
 
-import static slisenko.synchronise.DeadlockMain.sleep;
 import static slisenko.util.MyLogger.log;
+import static slisenko.util.ThreadUtil.sleep;
 
 public class WaitNotifyMain {
 
     public static String message = null;
-    
+
     public static void main(String[] args) throws InterruptedException {
         Object lock = new Object();
         int count = 100;

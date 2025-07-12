@@ -3,10 +3,9 @@ package slisenko.synchronise;
 import java.util.ArrayList;
 import java.util.List;
 
-// Questions
-// Performance cost of synchronised vs non-synchronised code
+import static slisenko.util.MyLogger.log;
+
 // TODO synchronised singleton
-// TODO wait-notify
 // TODO thread local + thread local with date/time and random
 // TODO java memory model
 // TODO how to correctly handle interrupted exception
@@ -53,7 +52,7 @@ public class SynchronisedMain {
         runAndWait(nonSyncWorker, threads);
         runAndWait(syncWorker, threads);
 
-        System.out.format("Sync counter %d, non sync counter %d, iterations %d, threads %d\n", data.getSync(), data.getNonSync(), iterations, threads);
+       log("Sync counter %d, non sync counter %d, iterations %d, threads %d\n", data.getSync(), data.getNonSync(), iterations, threads);
 
     }
 
@@ -75,7 +74,7 @@ public class SynchronisedMain {
             }
         });
 
-        System.out.format("Completed %d threads in %d ms\n", threadCount, System.currentTimeMillis() - startTimeMs);
+        log("Completed %d threads in %d ms", threadCount, System.currentTimeMillis() - startTimeMs);
 
         /*
          * Completed 10 threads in 23 ms
