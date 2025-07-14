@@ -1,4 +1,4 @@
-package slisenko.collections;
+package slisenko.collections.map;
 
 import java.util.concurrent.ConcurrentHashMap;
 
