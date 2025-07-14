@@ -10,6 +10,7 @@ public class MyLogger {
     public static void log(String format, Object... args) {
         String message = String.format(format, args);
         String dateTime = LocalDateTime.now().format(formatter);
-        System.out.format("%-15s | %-10s | %s\n", Thread.currentThread().getName(), dateTime, message);
+        String threadName = Thread.currentThread().isVirtual() ? "(V) " + Thread.currentThread().getName() : Thread.currentThread().getName();
+        System.out.format("%-15s %4d | %-10s | %s\n", threadName, Thread.currentThread().threadId(), dateTime, message);
     }
 }
