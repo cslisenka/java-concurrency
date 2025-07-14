@@ -1,4 +1,4 @@
-package slisenko.samples.example1;
+package slisenko.samples;
 
 import org.junit.jupiter.api.Test;
 

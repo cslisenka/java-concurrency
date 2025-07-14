@@ -1,4 +1,4 @@
-package slisenko.samples.example1;
+package slisenko.samples;
 
 import java.util.concurrent.atomic.AtomicReference;
 
