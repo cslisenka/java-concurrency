@@ -27,7 +27,7 @@ public class RetriableExecutor {
 
             }
 
-            ScheduledFuture<T> future = retryExecutor.schedule();
+            ScheduledFuture<T> future = null;
             return future.get();
         }
     }
