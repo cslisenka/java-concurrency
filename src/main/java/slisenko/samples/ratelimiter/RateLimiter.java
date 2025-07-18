@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 
@@ -31,25 +32,27 @@ public class RateLimiter {
         // The statistics must automatically expire to save memory
 
         LocalDateTime currentTime = timeSupplier.get();
-        System.out.println("currentTime " + currentTime);
 
-        // Create or get new queue of timestamps per user
-        ConcurrentLinkedQueue<LocalDateTime> userRequests = stats.computeIfAbsent(userId, s -> new ConcurrentLinkedQueue<>());
-        System.out.println("queue " + userRequests);
-        // Remove all timestamps which do not fit into the window
-        userRequests.removeIf(localDateTime -> {
-            boolean isAfter = currentTime.isAfter(localDateTime.plus(duration));;
-            System.out.println(currentTime + " is after? " + localDateTime.plus(duration) + " = " + isAfter);
-            return isAfter;
+        // Create new queue, or update existing queue atomically
+        ConcurrentLinkedQueue<LocalDateTime> userRequests = stats.compute(userId, new BiFunction<String, ConcurrentLinkedQueue<LocalDateTime>, ConcurrentLinkedQueue<LocalDateTime>>() {
+            @Override
+            public ConcurrentLinkedQueue<LocalDateTime> apply(String s, ConcurrentLinkedQueue<LocalDateTime> localDateTimes) {
+                if (localDateTimes == null) {
+                    ConcurrentLinkedQueue<LocalDateTime> times = new ConcurrentLinkedQueue<>();
+                    times.add(currentTime);
+                    return times;
+                } else {
+                    localDateTimes.removeIf(localDateTime -> currentTime.isAfter(localDateTime.plus(duration)));
+                    localDateTimes.add(currentTime);
+                    return localDateTimes;
+                }
+            }
         });
-
-        userRequests.add(currentTime);
-
-        System.out.println("queue after" + userRequests);
 
         return userRequests.size() <= maxRequests;
     }
 
+    // Use only for unit-tests to mock the time
     protected void setDateTimeSupplier(Supplier<LocalDateTime> timeSupplier) {
         this.timeSupplier = timeSupplier;
     }
