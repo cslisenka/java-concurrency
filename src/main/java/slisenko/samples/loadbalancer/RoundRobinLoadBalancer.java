@@ -24,7 +24,7 @@ public class RoundRobinLoadBalancer implements ILoadBalancer {
             throw new LoadBalancerException("List of hosts is empty");
         }
 
-        int index = nextHostIndex.getAndUpdate(operand -> {
+        int index = nextHostIndex.updateAndGet(operand -> {
             // This code is thread-safe and lock-free
             return operand >= hosts.size() - 1 ? 0 : operand + 1;
         });
